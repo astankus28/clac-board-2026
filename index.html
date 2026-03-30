@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Cleveland Lithuanian American Community Inc. — 2026 Board Meeting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --yellow: #FFC400;
+  --green: #006A44;
+  --red: #C1272D;
+  --cream: #F5F0E8;
+  --dark: #1A1A14;
+  --dark2: #222218;
+  --green-light: #00A366;
+  --gold-light: #FFD966;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+html, body {
+  font-family:'DM Sans',sans-serif;
+  background:var(--dark); color:var(--cream);
+  width:100%; height:100%;
+  overflow:hidden;
+  touch-action:pan-y;
+}
+
+/* ── FLAG TOP ── */
+.flag-top { position:fixed; top:0; left:0; right:0; height:4px; display:flex; z-index:400; }
+.flag-top span { flex:1; }
+.flag-top span:nth-child(1){background:var(--yellow);}
+.flag-top span:nth-child(2){background:var(--green);}
+.flag-top span:nth-child(3){background:var(--red);}
+
+/* ── LANG TOGGLE ── */
+#lang-toggle {
+  position:fixed; top:12px; right:12px; z-index:300;
+  display:flex; background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.13); border-radius:20px; overflow:hidden;
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+}
+#lang-toggle button {
+  padding:6px 14px; font-family:'DM Sans',sans-serif;
+  font-size:11px; font-weight:600; letter-spacing:2px;
+  border:none; cursor:pointer; transition:all 0.2s;
+  text-transform:uppercase; background:transparent; color:rgba(245,240,232,0.45);
+  -webkit-appearance:none;
+}
+#lang-toggle button.active { background:var(--yellow); color:var(--dark); border-radius:20px; }
+
+/* ── LANGUAGE CLASSES ── */
+.lt { display:none; }
+body.lang-lt .en { display:none; }
+body.lang-lt .lt { display:block; }
+.lt-inline { display:none; }
+body.lang-lt .lt-inline { display:inline; }
+body.lang-lt .en-inline { display:none; }
+
+/* ── DECK & SLIDES ── */
+#deck { width:100%; height:100%; position:relative; }
+
+.slide {
+  position:absolute; inset:0;
+  display:flex; flex-direction:column;
+  opacity:0; transform:translateX(60px); pointer-events:none;
+  transition:opacity 0.5s cubic-bezier(.4,0,.2,1), transform 0.5s cubic-bezier(.4,0,.2,1);
+  overflow:hidden;
+}
+.slide.active { opacity:1; transform:translateX(0); pointer-events:all; }
+.slide.exit-left { opacity:0; transform:translateX(-60px); pointer-events:none; }
+
+/* slides that need to scroll on mobile */
+.slide-scroll {
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* ── PROGRESS & COUNTER ── */
+#progress { position:fixed; bottom:0; left:0; height:3px; background:var(--yellow); transition:width 0.4s ease; z-index:200; }
+#counter { position:fixed; bottom:10px; right:12px; font-size:10px; font-weight:500; letter-spacing:2px; color:rgba(245,240,232,0.3); z-index:200; }
+
+/* ── NAV ARROWS (hidden on tiny mobile, shown md+) ── */
+.nav-btn {
+  position:fixed; top:50%; transform:translateY(-50%);
+  width:40px; height:40px; border-radius:50%;
+  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.35); font-size:18px; cursor:pointer; z-index:200;
+  display:flex; align-items:center; justify-content:center; transition:all 0.2s;
+  backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+  -webkit-appearance:none;
+}
+.nav-btn:hover { background:rgba(255,196,0,0.12); border-color:rgba(255,196,0,0.35); color:var(--yellow); }
+#btn-prev { left:8px; }
+#btn-next { right:8px; }
+
+/* ── SWIPE HINT (mobile only) ── */
+#swipe-hint { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); font-size:9px; letter-spacing:2px; color:rgba(245,240,232,0.2); text-transform:uppercase; z-index:200; white-space:nowrap; }
+
+/* ── SHARED SLIDE PADDING ── */
+.slide-inner {
+  padding:56px 48px 36px;
+  display:flex; flex-direction:column;
+  min-height:100%;
+}
+
+.slide-eyebrow { font-size:9px; letter-spacing:4px; text-transform:uppercase; color:var(--green-light); margin-bottom:8px; font-weight:600; }
+.slide-title { font-family:'Playfair Display',serif; font-size:clamp(26px,5vw,46px); font-weight:700; line-height:1.1; color:var(--cream); margin-bottom:24px; }
+.slide-title span { color:var(--yellow); }
+
+/* ── CORNER MARK ── */
+.corner-mark { position:absolute; top:20px; right:100px; font-size:8px; letter-spacing:3px; text-transform:uppercase; color:rgba(245,240,232,0.12); font-weight:500; }
+
+/* ══════════════════════════════
+   SLIDE 1 — TITLE
+══════════════════════════════ */
+#s1 {
+  background:var(--dark);
+  justify-content:flex-end;
+}
+.s1-deco { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.s1-line { position:absolute; left:0; top:0; width:5px; height:100%; background:linear-gradient(to bottom, var(--yellow) 33%, var(--green) 33% 66%, var(--red) 66%); }
+.s1-circle { position:absolute; right:-120px; top:-120px; width:500px; height:500px; border-radius:50%; border:90px solid rgba(0,106,68,0.1); }
+.s1-circle2 { position:absolute; right:20px; top:20px; width:220px; height:220px; border-radius:50%; border:1px solid rgba(255,196,0,0.15); }
+.s1-content { position:relative; z-index:2; padding:0 28px 60px 36px; }
+.s1-flags { display:flex; gap:5px; margin-bottom:18px; opacity:0; animation:fadeIn 0.6s 0.3s forwards; }
+.s1-flag-dot { width:7px; height:7px; border-radius:50%; }
+.s1-eyebrow { font-size:9px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:var(--yellow); margin-bottom:14px; opacity:0; animation:fadeUp 0.6s 0.4s forwards; }
+.s1-title { font-family:'Playfair Display',serif; font-size:clamp(36px,8vw,68px); font-weight:900; line-height:1.05; color:var(--cream); margin-bottom:8px; opacity:0; animation:fadeUp 0.7s 0.55s forwards; }
+.s1-title em { font-style:italic; color:var(--yellow); }
+.s1-subtitle { font-family:'Cormorant Garamond',serif; font-size:clamp(16px,3vw,20px); font-weight:300; font-style:italic; color:rgba(245,240,232,0.55); margin-bottom:28px; opacity:0; animation:fadeUp 0.7s 0.7s forwards; }
+.s1-meta { display:flex; flex-wrap:wrap; gap:20px; opacity:0; animation:fadeUp 0.7s 0.85s forwards; }
+.s1-meta-item { display:flex; flex-direction:column; gap:3px; }
+.s1-meta-label { font-size:8px; letter-spacing:3px; text-transform:uppercase; color:rgba(245,240,232,0.3); }
+.s1-meta-val { font-size:13px; font-weight:500; color:var(--cream); }
+
+/* ══════════════════════════════
+   SLIDE 2 — GRANT DASHBOARD
+══════════════════════════════ */
+#s2 { background:#0E1A14; }
+
+.s2-header-row { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:20px; }
+.live-btn {
+  display:inline-flex; align-items:center; gap:8px; flex-shrink:0;
+  padding:10px 16px; border-radius:10px; margin-top:4px;
+  background:rgba(0,163,102,0.12); border:1px solid rgba(0,163,102,0.35);
+  color:var(--green-light); font-size:12px; font-weight:600;
+  text-decoration:none; letter-spacing:0.2px;
+  transition:background 0.2s, border-color 0.2s;
+  white-space:nowrap;
+}
+.live-btn:hover { background:rgba(0,163,102,0.22); }
+.live-dot { width:7px; height:7px; border-radius:50%; background:var(--green-light); flex-shrink:0; animation:pulse-dot 2s infinite; }
+@keyframes pulse-dot {
+  0%   { box-shadow:0 0 0 0 rgba(0,163,102,0.5); }
+  70%  { box-shadow:0 0 0 6px rgba(0,163,102,0); }
+  100% { box-shadow:0 0 0 0 rgba(0,163,102,0); }
+}
+
+.s2-cols { display:grid; grid-template-columns:1fr 1fr; gap:20px; flex:1; }
+.s2-visual { background:rgba(0,106,68,0.1); border:1px solid rgba(0,106,68,0.25); border-radius:12px; padding:20px; display:flex; flex-direction:column; gap:12px; }
+.s2-visual-label { font-size:8px; letter-spacing:3px; text-transform:uppercase; color:var(--green-light); }
+.grant-row { display:flex; align-items:center; gap:10px; }
+.grant-bar-wrap { flex:1; height:5px; background:rgba(255,255,255,0.07); border-radius:3px; overflow:hidden; }
+.grant-bar { height:100%; border-radius:3px; background:var(--green-light); }
+.grant-name { font-size:11px; color:rgba(245,240,232,0.65); width:120px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.grant-amt { font-size:11px; font-weight:600; color:var(--yellow); width:52px; text-align:right; }
+.s2-stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:4px; }
+.stat-card { background:rgba(255,196,0,0.06); border:1px solid rgba(255,196,0,0.15); border-radius:10px; padding:14px 16px; }
+.stat-num { font-family:'Playfair Display',serif; font-size:28px; font-weight:700; color:var(--yellow); line-height:1; margin-bottom:3px; }
+.stat-label { font-size:10px; color:rgba(245,240,232,0.5); line-height:1.4; }
+.s2-features { display:flex; flex-direction:column; gap:8px; }
+.feature-item { display:flex; align-items:flex-start; gap:12px; padding:12px 14px; background:rgba(255,255,255,0.03); border-radius:8px; border-left:3px solid var(--green); }
+.feature-icon { font-size:18px; flex-shrink:0; margin-top:1px; }
+.feature-text strong { display:block; font-size:12px; font-weight:600; color:var(--cream); margin-bottom:2px; }
+.feature-text span { font-size:10.5px; color:rgba(245,240,232,0.48); line-height:1.4; }
+
+/* ══════════════════════════════
+   SLIDE 3 — GOOGLE
+══════════════════════════════ */
+#s3 { background:var(--dark2); }
+.s3-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; flex:1; }
+.g-card { border-radius:12px; padding:18px 16px; display:flex; flex-direction:column; gap:8px; border:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.03); transition:transform 0.2s, border-color 0.2s; }
+.g-card:hover { transform:translateY(-2px); border-color:rgba(255,196,0,0.3); }
+.g-card-icon { font-size:24px; margin-bottom:2px; }
+.g-card-title { font-size:13px; font-weight:600; color:var(--cream); }
+.g-card-desc { font-size:11px; color:rgba(245,240,232,0.48); line-height:1.45; flex:1; }
+.g-card-badge { display:inline-block; background:rgba(0,163,102,0.18); color:var(--green-light); font-size:9px; font-weight:600; letter-spacing:1px; padding:3px 9px; border-radius:20px; border:1px solid rgba(0,163,102,0.28); text-transform:uppercase; margin-top:auto; align-self:flex-start; }
+.g-card-badge.gold { background:rgba(255,196,0,0.13); color:var(--yellow); border-color:rgba(255,196,0,0.28); }
+.g-big { grid-column:span 2; background:linear-gradient(135deg,rgba(0,106,68,0.14),rgba(0,106,68,0.04)); border-color:rgba(0,106,68,0.28); }
+.g-card-value { font-family:'Playfair Display',serif; font-size:30px; font-weight:700; color:var(--yellow); line-height:1; }
+
+/* ══════════════════════════════
+   SLIDE 4 — FREE TOOLS
+══════════════════════════════ */
+#s4 { background:#120E0E; }
+.s4-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; flex:1; margin-top:24px; }
+.tool-card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:12px; padding:16px 14px; display:flex; flex-direction:column; gap:6px; transition:border-color 0.2s, background 0.2s; }
+.tool-card:hover { background:rgba(193,39,45,0.06); border-color:rgba(193,39,45,0.25); }
+.tool-logo { font-size:20px; margin-bottom:3px; }
+.tool-name { font-size:12px; font-weight:600; color:var(--cream); }
+.tool-desc { font-size:10px; color:rgba(245,240,232,0.48); line-height:1.45; flex:1; }
+.tool-tag { font-size:9px; color:var(--red); font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-top:3px; }
+
+/* ══════════════════════════════
+   SLIDE 5 — VISUAL / CAMERA
+══════════════════════════════ */
+#s5 { background:#0A0D14; }
+.s5-cols { display:grid; grid-template-columns:1fr 1fr; gap:40px; flex:1; align-items:center; }
+.use-list { display:flex; flex-direction:column; gap:10px; margin-top:14px; }
+.use-row { display:flex; align-items:center; gap:12px; font-size:12px; color:rgba(245,240,232,0.7); }
+.use-row::before { content:''; width:20px; height:2px; background:var(--yellow); flex-shrink:0; }
+.s5-note { margin-top:20px; padding:14px 16px; background:rgba(255,255,255,0.03); border-radius:10px; border:1px solid rgba(255,255,255,0.08); }
+.s5-note-tag { font-size:8px; letter-spacing:2px; text-transform:uppercase; color:var(--yellow); font-weight:600; margin-bottom:6px; display:block; }
+.s5-note p { font-size:11px; color:rgba(245,240,232,0.42); line-height:1.6; }
+.s5-note strong { color:var(--cream); }
+.s5-cam-wrap { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; position:relative; }
+.camera-future-pill { background:rgba(255,196,0,0.1); border:1px solid rgba(255,196,0,0.25); border-radius:20px; padding:5px 14px; font-size:9px; letter-spacing:2px; color:var(--yellow); font-weight:600; text-transform:uppercase; }
+.camera-mock { position:relative; width:220px; height:155px; background:linear-gradient(145deg,#2A2A2A,#1A1A1A); border-radius:14px 14px 7px 7px; box-shadow:0 30px 60px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.07); display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.07); }
+.camera-lens { width:76px; height:76px; border-radius:50%; background:radial-gradient(circle at 35% 35%,#2a4a6a,#050a10); border:3px solid #333; box-shadow:0 0 0 2px #222,inset 0 2px 4px rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; }
+.camera-lens-inner { width:42px; height:42px; border-radius:50%; background:radial-gradient(circle at 30% 30%,#1a3a5a,#010408); border:2px solid #444; }
+.camera-grip { position:absolute; right:-12px; top:8px; width:24px; height:68px; background:linear-gradient(145deg,#2A2A2A,#1A1A1A); border-radius:0 10px 10px 0; border:1px solid rgba(255,255,255,0.05); border-left:none; }
+.camera-hotshoe { position:absolute; top:-8px; left:50%; transform:translateX(-50%); width:50px; height:10px; background:#2A2A2A; border-radius:3px 3px 0 0; }
+.camera-label { position:absolute; bottom:12px; left:50%; transform:translateX(-50%); font-family:'Playfair Display',serif; font-size:10px; font-weight:700; color:rgba(255,255,255,0.35); letter-spacing:2px; white-space:nowrap; }
+.cam-specs { font-size:10px; letter-spacing:2px; color:rgba(255,196,0,0.3); text-transform:uppercase; text-align:center; }
+
+/* ══════════════════════════════
+   SLIDE 6 — NEXT STEPS
+══════════════════════════════ */
+#s6 { background:var(--dark); }
+.s6-steps { display:flex; flex-direction:column; margin-top:20px; flex:1; justify-content:center; }
+.step-row { display:grid; grid-template-columns:46px 1fr auto; align-items:center; gap:18px; padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.06); position:relative; }
+.step-row:last-child { border-bottom:none; }
+.step-num { width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:18px; font-weight:700; flex-shrink:0; border:2px solid; }
+.step-row:nth-child(1) .step-num { color:var(--yellow); border-color:var(--yellow); background:rgba(255,196,0,0.06); }
+.step-row:nth-child(2) .step-num { color:var(--green-light); border-color:var(--green); background:rgba(0,106,68,0.08); }
+.step-row:nth-child(3) .step-num { color:var(--gold-light); border-color:var(--gold-light); background:rgba(255,217,102,0.06); }
+.step-row:nth-child(4) .step-num { color:var(--red); border-color:var(--red); background:rgba(193,39,45,0.06); }
+.step-row:nth-child(5) .step-num { color:var(--cream); border-color:rgba(245,240,232,0.3); background:rgba(245,240,232,0.04); }
+.step-body strong { display:block; font-size:13px; font-weight:600; color:var(--cream); margin-bottom:2px; }
+.step-body p { font-size:11px; color:rgba(245,240,232,0.42); line-height:1.45; }
+.step-timing { font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(245,240,232,0.28); white-space:nowrap; font-weight:500; }
+.step-connector { position:absolute; left:23px; bottom:-13px; width:1px; height:26px; background:rgba(255,255,255,0.07); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);} }
+@keyframes fadeIn  { from{opacity:0;}to{opacity:1;} }
+.active .anim-in   { animation:fadeUp 0.55s 0.12s both; }
+.active .anim-in-2 { animation:fadeUp 0.55s 0.27s both; }
+.active .anim-in-3 { animation:fadeUp 0.55s 0.42s both; }
+.active .anim-in-4 { animation:fadeUp 0.55s 0.57s both; }
+
+/* ══════════════════════════════
+   MOBILE OVERRIDES — max 768px
+══════════════════════════════ */
+@media (max-width: 768px) {
+  /* Allow slides to scroll */
+  .slide { overflow-y:auto; -webkit-overflow-scrolling:touch; }
+
+  /* Hide desktop nav arrows on phone */
+  .nav-btn { display:none; }
+
+  /* Slide inner padding tighter */
+  .slide-inner { padding:52px 20px 60px; }
+
+  /* Corner mark hidden on mobile */
+  .corner-mark { display:none; }
+
+  /* ── S1 TITLE ── */
+  .s1-content { padding:0 20px 52px 28px; }
+  .s1-title { font-size:clamp(34px,9vw,52px); }
+  .s1-subtitle { font-size:16px; }
+  .s1-meta { gap:16px; }
+  .s1-circle { width:320px; height:320px; right:-80px; top:-80px; border-width:60px; }
+  .s1-circle2 { width:160px; height:160px; right:16px; top:16px; }
+
+  /* ── S2 GRANT DASHBOARD ── */
+  .s2-header-row { flex-direction:column; align-items:flex-start; gap:12px; }
+  .live-btn { width:100%; justify-content:center; }
+  .s2-cols { grid-template-columns:1fr; gap:16px; }
+  .grant-name { width:110px; }
+
+  /* ── S3 GOOGLE ── */
+  .s3-grid { grid-template-columns:1fr 1fr; }
+  .g-big { grid-column:span 2; }
+  .g-card-value { font-size:26px; }
+
+  /* ── S4 FREE TOOLS ── */
+  .s4-grid { grid-template-columns:1fr 1fr; gap:10px; }
+
+  /* ── S5 CAMERA ── */
+  .s5-cols { grid-template-columns:1fr; gap:20px; }
+  .s5-cam-wrap { order:-1; padding-top:8px; }
+  .camera-mock { width:180px; height:126px; }
+  .camera-lens { width:62px; height:62px; }
+  .camera-lens-inner { width:34px; height:34px; }
+
+  /* ── S6 NEXT STEPS ── */
+  .step-row { grid-template-columns:40px 1fr; gap:14px; }
+  .step-timing { display:none; }
+  .step-num { width:40px; height:40px; font-size:16px; }
+  .step-body strong { font-size:12px; }
+
+  /* Slide title smaller on mobile */
+  .slide-title { font-size:clamp(22px,6vw,36px); margin-bottom:16px; }
+}
+
+/* ── Extra small (iPhone SE etc) ── */
+@media (max-width: 390px) {
+  .s4-grid { grid-template-columns:1fr 1fr; }
+  .s3-grid { grid-template-columns:1fr; }
+  .g-big { grid-column:span 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- Flag stripe -->
+<div class="flag-top"><span></span><span></span><span></span></div>
+
+<!-- Language toggle -->
+<div id="lang-toggle">
+  <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+  <button id="btn-lt" onclick="setLang('lt')">LT</button>
+</div>
+
+<!-- Progress -->
+<div id="progress"></div>
+<div id="counter">1 / 6</div>
+<div id="swipe-hint"><span class="en">swipe to navigate</span><span class="lt">braukite naršymui</span></div>
+
+<!-- Nav arrows -->
+<button class="nav-btn" id="btn-prev">‹</button>
+<button class="nav-btn" id="btn-next">›</button>
+
+<div id="deck">
+
+  <!-- ══ S1: TITLE ══ -->
+  <div class="slide active" id="s1">
+    <div class="s1-deco">
+      <div class="s1-line"></div>
+      <div class="s1-circle"></div>
+      <div class="s1-circle2"></div>
+    </div>
+    <div class="s1-content">
+      <div class="s1-flags">
+        <div class="s1-flag-dot" style="background:var(--yellow)"></div>
+        <div class="s1-flag-dot" style="background:var(--green)"></div>
+        <div class="s1-flag-dot" style="background:var(--red)"></div>
+      </div>
+      <div class="s1-eyebrow">
+        <span class="en">501(c)(3) · Est. Cleveland, Ohio</span>
+        <span class="lt">501(c)(3) · Įkurta Klivlende, Ohajo valst.</span>
+      </div>
+      <div class="s1-title">
+        <span class="en">Cleveland<br><em>Lithuanian<br>American</em><br>Community Inc.</span>
+        <span class="lt">Klivlendo<br><em>Lietuvių<br>Amerikiečių</em><br>Bendruomenė</span>
+      </div>
+      <div class="s1-subtitle">
+        <span class="en">2026 Board Meeting · Strategic Initiatives</span>
+        <span class="lt">2026 m. Valdybos Posėdis · Strateginės Iniciatyvos</span>
+      </div>
+      <div class="s1-meta">
+        <div class="s1-meta-item">
+          <span class="s1-meta-label"><span class="en">Date</span><span class="lt">Data</span></span>
+          <span class="s1-meta-val"><span class="en">March 2026</span><span class="lt">2026 m. Kovas</span></span>
+        </div>
+        <div class="s1-meta-item">
+          <span class="s1-meta-label"><span class="en">Format</span><span class="lt">Formatas</span></span>
+          <span class="s1-meta-val"><span class="en">Zoom · Board of Directors</span><span class="lt">Zoom · Valdybos Nariai</span></span>
+        </div>
+        <div class="s1-meta-item">
+          <span class="s1-meta-label"><span class="en">Prepared by</span><span class="lt">Parengė</span></span>
+          <span class="s1-meta-val">Andrew Stankus</span>
+        </div>
+      </div>
+    </div>
+    <span class="corner-mark">CLAC · 2026</span>
+  </div>
+
+  <!-- ══ S2: GRANT DASHBOARD ══ -->
+  <div class="slide" id="s2">
+    <div class="slide-inner">
+      <div class="s2-header-row anim-in">
+        <div>
+          <div class="slide-eyebrow"><span class="en">Digital Infrastructure</span><span class="lt">Skaitmeninė Infrastruktūra</span></div>
+          <div class="slide-title"><span class="en">Grant Tracking <span>Dashboard</span></span><span class="lt">Dotacijų Stebėjimo <span>Skydelis</span></span></div>
+        </div>
+        <a href="https://cle-grants.vercel.app/" target="_blank" rel="noopener" class="live-btn">
+          <span class="live-dot"></span>
+          <span class="en">Open Live Dashboard ↗</span>
+          <span class="lt">Atidaryti Gyvą Skydelį ↗</span>
+        </a>
+      </div>
+      <div class="s2-cols anim-in-2">
+        <div class="s2-visual">
+          <div class="s2-visual-label"><span class="en">Active Grant Pipeline — Sample</span><span class="lt">Aktyvių Dotacijų Vamzdynas</span></div>
+          <div class="grant-row"><span class="grant-name">Cleveland Foundation</span><div class="grant-bar-wrap"><div class="grant-bar" style="width:85%"></div></div><span class="grant-amt">$15K</span></div>
+          <div class="grant-row"><span class="grant-name">Ohio Arts Council</span><div class="grant-bar-wrap"><div class="grant-bar" style="width:60%"></div></div><span class="grant-amt">$8K</span></div>
+          <div class="grant-row"><span class="grant-name">NEA Heritage Fund</span><div class="grant-bar-wrap"><div class="grant-bar" style="width:40%"></div></div><span class="grant-amt">$25K</span></div>
+          <div class="grant-row"><span class="grant-name">George Gund Fdn</span><div class="grant-bar-wrap"><div class="grant-bar" style="width:70%"></div></div><span class="grant-amt">$10K</span></div>
+          <div class="grant-row"><span class="grant-name">Knight Foundation</span><div class="grant-bar-wrap"><div class="grant-bar" style="width:30%"></div></div><span class="grant-amt">$50K</span></div>
+          <div class="s2-stat-grid">
+            <div class="stat-card"><div class="stat-num">27</div><div class="stat-label"><span class="en">Grants<br>Tracked</span><span class="lt">Dotacijos<br>Stebimos</span></div></div>
+            <div class="stat-card"><div class="stat-num" style="color:var(--green-light)">Live</div><div class="stat-label"><span class="en">Google<br>Sheets</span><span class="lt">Google<br>Sheets</span></div></div>
+          </div>
+        </div>
+        <div class="s2-features">
+          <div class="feature-item">
+            <div class="feature-icon">📊</div>
+            <div class="feature-text">
+              <strong><span class="en">Live Data from Google Sheets</span><span class="lt">Tiesioginiai Duomenys</span></strong>
+              <span><span class="en">Board sees current status instantly — no spreadsheet hunting</span><span class="lt">Valdybos nariai iš karto mato dabartinę būseną</span></span>
+            </div>
+          </div>
+          <div class="feature-item" style="border-left-color:var(--yellow)">
+            <div class="feature-icon">🔗</div>
+            <div class="feature-text">
+              <strong><span class="en">Funder Links &amp; Drive Files</span><span class="lt">Nuorodos ir Drive Failai</span></strong>
+              <span><span class="en">One click to funder site, portal, and submitted documents</span><span class="lt">Vienu paspaudimu — finansuotojo svetainė ir dokumentai</span></span>
+            </div>
+          </div>
+          <div class="feature-item" style="border-left-color:var(--red)">
+            <div class="feature-icon">📅</div>
+            <div class="feature-text">
+              <strong><span class="en">Deadline Visibility</span><span class="lt">Terminų Matomumas</span></strong>
+              <span><span class="en">All funder deadlines visible at a glance</span><span class="lt">Visi terminai matomi iš karto</span></span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🌐</div>
+            <div class="feature-text">
+              <strong><span class="en">Shareable Board URL</span><span class="lt">Bendrinamas URL</span></strong>
+              <span><span class="en">Any device, any board member, any time</span><span class="lt">Bet koks įrenginys, bet kuris narys</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="corner-mark">CLAC · 2026</span>
+  </div>
+
+  <!-- ══ S3: GOOGLE FOR NONPROFITS ══ -->
+  <div class="slide" id="s3">
+    <div class="slide-inner">
+      <div class="anim-in">
+        <div class="slide-eyebrow"><span class="en">Free Tier — Requires Google for Nonprofits Approval</span><span class="lt">Nemokamas — Reikalingas Patvirtinimas</span></div>
+        <div class="slide-title"><span class="en">Google for <span>Nonprofits</span></span><span class="lt">„Google" <span>NVO</span></span></div>
+      </div>
+      <div class="s3-grid anim-in-2">
+        <div class="g-card g-big">
+          <div class="g-card-icon">📣</div>
+          <div class="g-card-title"><span class="en">Google Ad Grant</span><span class="lt">Google Reklamos Dotacija</span></div>
+          <div class="g-card-value">$10,000</div>
+          <div class="g-card-desc"><span class="en">Per month in free Google Search ads — reach people searching for Lithuanian heritage and CLAC events across Northeast Ohio.</span><span class="lt">Per mėnesį nemokamos Google paieškos reklamos — pasiekite žmones, ieškančius lietuvių paveldo ir CLAC renginių.</span></div>
+          <div class="g-card-badge gold"><span class="en">$120K / year value</span><span class="lt">$120K / metų vertė</span></div>
+        </div>
+        <div class="g-card">
+          <div class="g-card-icon">💼</div>
+          <div class="g-card-title">Google Workspace</div>
+          <div class="g-card-desc"><span class="en">Free professional email, Docs, Sheets, Drive, Meet. Up to 2,000 users, 100TB storage.</span><span class="lt">Nemokamas profesionalus el. paštas, Docs, Sheets, Drive, Meet. Iki 2000 vartotojų.</span></div>
+          <div class="g-card-badge"><span class="en">Free forever</span><span class="lt">Visada nemokama</span></div>
+        </div>
+        <div class="g-card">
+          <div class="g-card-icon">▶️</div>
+          <div class="g-card-title">YouTube Nonprofit</div>
+          <div class="g-card-desc"><span class="en">Donate buttons on videos, verified badge, dedicated support. Archive events and performances.</span><span class="lt">Aukų mygtukai, patvirtintas ženklelis. Archyvuokite renginius.</span></div>
+          <div class="g-card-badge"><span class="en">Verified badge</span><span class="lt">Patvirtintas ženklelis</span></div>
+        </div>
+        <div class="g-card">
+          <div class="g-card-icon">🗺️</div>
+          <div class="g-card-title"><span class="en">Maps Platform</span><span class="lt">Maps Platforma</span></div>
+          <div class="g-card-desc"><span class="en">$200/mo credit for interactive maps — cultural garden, neighborhood history, community site.</span><span class="lt">$200/mėn. kreditas — kultūrinis sodas, rajono istorija, bendruomenės svetainė.</span></div>
+          <div class="g-card-badge">$200/mo</div>
+        </div>
+        <div class="g-card">
+          <div class="g-card-icon">🤖</div>
+          <div class="g-card-title"><span class="en">Gemini AI</span><span class="lt">Gemini DI</span></div>
+          <div class="g-card-desc"><span class="en">AI writing and grant narrative drafting built into Workspace. Already powering the grant dashboard.</span><span class="lt">DI rašymas ir dotacijų naratyvų rengimas. Jau naudojama dotacijų skydelyje.</span></div>
+          <div class="g-card-badge gold"><span class="en">Included</span><span class="lt">Įtraukta</span></div>
+        </div>
+      </div>
+    </div>
+    <span class="corner-mark">CLAC · 2026</span>
+  </div>
+
+  <!-- ══ S4: FREE TOOLS ══ -->
+  <div class="slide" id="s4">
+    <div class="slide-inner">
+      <div class="anim-in">
+        <div class="slide-eyebrow"><span class="en">No-Cost Technology Stack</span><span class="lt">Nemokamų Technologijų Rinkinys</span></div>
+        <div class="slide-title"><span class="en">Free Tools for <span>Nonprofits</span></span><span class="lt">Nemokamos Priemonės <span>NVO</span></span></div>
+      </div>
+      <div class="s4-grid anim-in-2">
+        <div class="tool-card">
+          <div class="tool-logo">🛍️</div>
+          <div class="tool-name">TechSoup</div>
+          <div class="tool-desc"><span class="en">The gateway — verify 501(c)(3) here first. Unlocks Microsoft, Adobe, Cisco and the full nonprofit software ecosystem.</span><span class="lt">Vartai — patvirtinkite 501(c)(3) statusą čia. Atrakina visą NVO programinę įrangą.</span></div>
+          <div class="tool-tag">⭐ <span class="en">Step 1</span><span class="lt">1 žingsnis</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-logo">🎨</div>
+          <div class="tool-name">Canva</div>
+          <div class="tool-desc"><span class="en">Full Canva Pro free — flyers, social graphics, presentations, reports. Up to 50 licenses.</span><span class="lt">Visas Canva Pro nemokamai — skrajutės, grafika, pateiktys. Iki 50 licencijų.</span></div>
+          <div class="tool-tag"><span class="en">Free Pro</span><span class="lt">Nemokamas Pro</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-logo">🖥️</div>
+          <div class="tool-name">Microsoft 365</div>
+          <div class="tool-desc"><span class="en">10 free M365 Business Premium licenses via TechSoup. Word, Excel, Teams, SharePoint.</span><span class="lt">10 nemokamų M365 licencijų per TechSoup. Word, Excel, Teams, SharePoint.</span></div>
+          <div class="tool-tag"><span class="en">Via TechSoup</span><span class="lt">Per TechSoup</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-logo">📘</div>
+          <div class="tool-name">Meta / Facebook</div>
+          <div class="tool-desc"><span class="en">Free fundraising tools — donate buttons on posts &amp; live videos, birthday fundraisers, Nonprofit Manager. Processes via PayPal Giving Fund.</span><span class="lt">Nemokamos lėšų rinkimo priemonės — aukų mygtukai, gimtadienio aukos, valdymo skydelis.</span></div>
+          <div class="tool-tag"><span class="en">Free + Apply</span><span class="lt">Nemokama + Paraiška</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-logo">📧</div>
+          <div class="tool-name">Mailchimp</div>
+          <div class="tool-desc"><span class="en">15% nonprofit discount. Up to 500 contacts free. Newsletters, event announcements, grant updates.</span><span class="lt">15% nuolaida NVO. Iki 500 kontaktų nemokamai. Naujienlaiškiai, renginių pranešimai.</span></div>
+          <div class="tool-tag">15% <span class="en">off</span><span class="lt">nuolaida</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-logo">💳</div>
+          <div class="tool-name">PayPal Giving Fund</div>
+          <div class="tool-desc"><span class="en">Zero transaction fees for enrolled nonprofits. Donate via PayPal, Venmo, eBay for Charity. Required for Facebook payouts.</span><span class="lt">Nuliniai mokesčiai. Aukos per PayPal, Venmo. Reikalinga Facebook išmokoms.</span></div>
+          <div class="tool-tag">0% <span class="en">fees</span><span class="lt">mokesčiai</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-logo">✅</div>
+          <div class="tool-name">Asana</div>
+          <div class="tool-desc"><span class="en">Free premium tier for nonprofits — grants, events, board action items, community projects.</span><span class="lt">Nemokamas premium planas — dotacijos, renginiai, valdybos užduotys.</span></div>
+          <div class="tool-tag"><span class="en">Free Premium</span><span class="lt">Nemokamas Premium</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-logo">📹</div>
+          <div class="tool-name">Zoom</div>
+          <div class="tool-desc"><span class="en">Discounted plans for verified nonprofits — board meetings, virtual events, donor briefings. Already in use.</span><span class="lt">Nuolaidžios planai NVO — valdybos posėdžiai, virtualūs renginiai. Jau naudojamas.</span></div>
+          <div class="tool-tag"><span class="en">Nonprofit Rate</span><span class="lt">NVO Kaina</span></div>
+        </div>
+      </div>
+    </div>
+    <span class="corner-mark">CLAC · 2026</span>
+  </div>
+
+  <!-- ══ S5: VISUAL / CAMERA ══ -->
+  <div class="slide" id="s5">
+    <div class="slide-inner">
+      <div class="anim-in">
+        <div class="slide-eyebrow"><span class="en">Future Investment — When the Website Launches</span><span class="lt">Būsima Investicija — Kai Svetainė Bus Paleista</span></div>
+        <div class="slide-title"><span class="en"><span>Visual Content</span><br>Strategy for CLAC</span><span class="lt"><span>Vaizdinių Turinio</span><br>Strategija CLAC</span></div>
+      </div>
+      <div class="s5-cols anim-in-2">
+        <div>
+          <div class="use-list">
+            <div class="use-row"><span class="en">Event &amp; cultural performance documentation</span><span class="lt">Renginių ir kultūrinių pasirodymų dokumentavimas</span></div>
+            <div class="use-row"><span class="en">Grant reporting — high-quality impact photos</span><span class="lt">Dotacijų ataskaitos — poveikio fotografija</span></div>
+            <div class="use-row"><span class="en">Social media &amp; YouTube content</span><span class="lt">Socialinių tinklų ir YouTube turinys</span></div>
+            <div class="use-row"><span class="en">Community website imagery &amp; galleries</span><span class="lt">Bendruomenės svetainės nuotraukos</span></div>
+          </div>
+          <div class="s5-note">
+            <span class="s5-note-tag"><span class="en">Something to think about</span><span class="lt">Verta apsvarstyti</span></span>
+            <p><strong>Sony A7 V (~$2,899)</strong> <span class="en">— replaces hiring a photographer at every event ($500–$1,500/event). Not an immediate ask, but worth budgeting for once digital infrastructure is in place.</span><span class="lt">— pakeičia fotografo samdymą kiekviename renginyje ($500–$1,500). Ne skubus prašymas, bet verta planuoti biudžete.</span></p>
+          </div>
+        </div>
+        <div class="s5-cam-wrap">
+          <div class="camera-future-pill"><span class="en">Future consideration</span><span class="lt">Ateities svarstymas</span></div>
+          <div class="camera-mock">
+            <div class="camera-hotshoe"></div>
+            <div class="camera-lens"><div class="camera-lens-inner"></div></div>
+            <div class="camera-grip"></div>
+            <div class="camera-label">SONY α7 V</div>
+          </div>
+          <div class="cam-specs">33MP · 4K · AI AF</div>
+        </div>
+      </div>
+    </div>
+    <span class="corner-mark">CLAC · 2026</span>
+  </div>
+
+  <!-- ══ S6: NEXT STEPS ══ -->
+  <div class="slide" id="s6">
+    <div class="slide-inner">
+      <div class="anim-in">
+        <div class="slide-eyebrow"><span class="en">Action Plan — Board Approval Requested</span><span class="lt">Veiksmų Planas — Prašoma Valdybos Patvirtinimo</span></div>
+        <div class="slide-title"><span class="en">Next <span>Steps</span></span><span class="lt">Kiti <span>Žingsniai</span></span></div>
+      </div>
+      <div class="s6-steps anim-in-2">
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong><span class="en">Apply to TechSoup</span><span class="lt">Pateikti Paraišką į TechSoup</span></strong>
+            <p><span class="en">Upload 501(c)(3) letter, EIN, org info. Gateway to all nonprofit software. 5–7 days to verify.</span><span class="lt">Įkelkite 501(c)(3) laišką, EIN. Vartai į visą NVO programinę įrangą. 5–7 dienos.</span></p>
+          </div>
+          <div class="step-timing"><span class="en">This week</span><span class="lt">Šią savaitę</span></div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong><span class="en">Apply — Google for Nonprofits</span><span class="lt">Registruotis — Google for Nonprofits</span></strong>
+            <p><span class="en">Use TechSoup verification. Unlocks $10K/month Ad Grant, Workspace, YouTube, Maps, Gemini. ~2 weeks.</span><span class="lt">Naudokite TechSoup patvirtinimą. Atrakina $10K/mėn. dotaciją ir visas paslaugas. ~2 savaitės.</span></p>
+          </div>
+          <div class="step-timing"><span class="en">Week 2</span><span class="lt">2-oji savaitė</span></div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong><span class="en">Activate Canva &amp; Meta Fundraising Tools</span><span class="lt">Aktyvuoti Canva ir Meta Priemones</span></strong>
+            <p><span class="en">Apply for Canva for Nonprofits, enable Facebook fundraising tools, link PayPal Giving Fund.</span><span class="lt">Kreipkitės dėl Canva, įjunkite Facebook lėšų rinkimo priemones, susiekite PayPal Giving Fund.</span></p>
+          </div>
+          <div class="step-timing"><span class="en">Week 2–3</span><span class="lt">2–3 savaitė</span></div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong><span class="en">Launch Google Ad Grant Campaigns</span><span class="lt">Paleisti Google Reklamos Kampanijas</span></strong>
+            <p><span class="en">Build search campaigns targeting Lithuanian diaspora and heritage events — $10K/month in reach, free.</span><span class="lt">Sukurkite paieškos kampanijas lietuvių diasporai — $10K/mėn. pasiekiamumas, nemokamai.</span></p>
+          </div>
+          <div class="step-timing"><span class="en">April – May</span><span class="lt">Balandis – Gegužė</span></div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <strong><span class="en">Launch CLAC Website &amp; Budget for Camera</span><span class="lt">Paleisti CLAC Svetainę ir Planuoti Kamerą</span></strong>
+            <p><span class="en">Build claccleveland.org and begin budgeting for a professional camera once digital infrastructure is fully in place.</span><span class="lt">Sukurkite claccleveland.org ir pradėkite planuoti kameros biudžetą, kai infrastruktūra bus sukurta.</span></p>
+          </div>
+          <div class="step-timing"><span class="en">Mid 2026</span><span class="lt">2026 vidurys</span></div>
+        </div>
+      </div>
+    </div>
+    <span class="corner-mark">CLAC · 2026</span>
+  </div>
+
+</div><!-- #deck -->
+
+<script>
+// ── LANGUAGE ──
+function setLang(lang) {
+  document.body.classList.toggle('lang-lt', lang === 'lt');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-lt').classList.toggle('active', lang === 'lt');
+}
+
+// ── NAVIGATION ──
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let current = 0;
+
+function goTo(n) {
+  const prev = current;
+  current = Math.max(0, Math.min(n, total - 1));
+  if (prev === current) return;
+  // scroll active slide back to top before transitioning
+  slides[prev].scrollTop = 0;
+  slides[prev].classList.remove('active');
+  slides[prev].classList.add('exit-left');
+  setTimeout(() => slides[prev].classList.remove('exit-left'), 550);
+  slides[current].classList.add('active');
+  slides[current].scrollTop = 0;
+  document.getElementById('progress').style.width = ((current + 1) / total * 100) + '%';
+  document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+}
+
+document.getElementById('btn-next').addEventListener('click', () => goTo(current + 1));
+document.getElementById('btn-prev').addEventListener('click', () => goTo(current - 1));
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                     { e.preventDefault(); goTo(current - 1); }
+});
+
+// ── TOUCH SWIPE (only navigate if not scrolling vertically) ──
+let touchStartX = 0, touchStartY = 0, touchStartScrollTop = 0;
+
+document.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  touchStartScrollTop = slides[current].scrollTop;
+}, { passive: true });
+
+document.addEventListener('touchend', e => {
+  const dx = touchStartX - e.changedTouches[0].clientX;
+  const dy = touchStartY - e.changedTouches[0].clientY;
+  const scrolled = Math.abs(slides[current].scrollTop - touchStartScrollTop) > 5;
+  // only swipe-navigate if horizontal gesture dominates and user didn't scroll
+  if (!scrolled && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 44) {
+    goTo(dx > 0 ? current + 1 : current - 1);
+  }
+}, { passive: true });
+
+// ── INIT ──
+document.getElementById('progress').style.width = (1 / total * 100) + '%';
+
+// Hide swipe hint after first interaction
+document.addEventListener('touchend', () => {
+  document.getElementById('swipe-hint').style.opacity = '0';
+}, { once: true });
+</script>
+</body>
+</html>
