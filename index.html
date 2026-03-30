@@ -225,6 +225,26 @@ body.lang-lt .en-inline { display:none; }
 .camera-label { position:absolute; bottom:12px; left:50%; transform:translateX(-50%); font-family:'Playfair Display',serif; font-size:10px; font-weight:700; color:rgba(255,255,255,0.35); letter-spacing:2px; white-space:nowrap; }
 .cam-specs { font-size:10px; letter-spacing:2px; color:rgba(255,196,0,0.3); text-transform:uppercase; text-align:center; }
 
+/* ── CARD LINKS ── */
+.card-link {
+  display:block; text-decoration:none; color:inherit;
+  transition:opacity 0.15s;
+}
+.card-link:hover { opacity:0.85; }
+.card-link .g-card,
+.card-link .tool-card {
+  height:100%;
+}
+.link-tag {
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:9px; font-weight:600; letter-spacing:1.5px;
+  text-transform:uppercase; color:rgba(245,240,232,0.3);
+  margin-top:6px; text-decoration:none;
+  transition:color 0.15s;
+}
+.link-tag:hover { color:var(--yellow); }
+.link-tag::after { content:'↗'; font-size:10px; }
+
 /* ══════════════════════════════
    SLIDE 6 — NEXT STEPS
 ══════════════════════════════ */
@@ -449,37 +469,52 @@ body.lang-lt .en-inline { display:none; }
         <div class="slide-title"><span class="en">Google for <span>Nonprofits</span></span><span class="lt">„Google" <span>NVO</span></span></div>
       </div>
       <div class="s3-grid anim-in-2">
+        <a href="https://www.google.com/intl/en/nonprofits/offerings/apps-for-nonprofits.html" target="_blank" rel="noopener" class="card-link">
         <div class="g-card g-big">
           <div class="g-card-icon">📣</div>
           <div class="g-card-title"><span class="en">Google Ad Grant</span><span class="lt">Google Reklamos Dotacija</span></div>
           <div class="g-card-value">$10,000</div>
           <div class="g-card-desc"><span class="en">Per month in free Google Search ads — reach people searching for Lithuanian heritage and CLAC events across Northeast Ohio.</span><span class="lt">Per mėnesį nemokamos Google paieškos reklamos — pasiekite žmones, ieškančius lietuvių paveldo ir CLAC renginių.</span></div>
           <div class="g-card-badge gold"><span class="en">$120K / year value</span><span class="lt">$120K / metų vertė</span></div>
+          <span class="link-tag">google.com/nonprofits</span>
         </div>
+        </a>
+        <a href="https://support.google.com/nonprofits/answer/3367223" target="_blank" rel="noopener" class="card-link">
         <div class="g-card">
           <div class="g-card-icon">💼</div>
           <div class="g-card-title">Google Workspace</div>
           <div class="g-card-desc"><span class="en">Free professional email, Docs, Sheets, Drive, Meet. Up to 2,000 users, 100TB storage.</span><span class="lt">Nemokamas profesionalus el. paštas, Docs, Sheets, Drive, Meet. Iki 2000 vartotojų.</span></div>
           <div class="g-card-badge"><span class="en">Free forever</span><span class="lt">Visada nemokama</span></div>
+          <span class="link-tag">Apply via G4NP</span>
         </div>
+        </a>
+        <a href="https://support.google.com/nonprofits/answer/1247360" target="_blank" rel="noopener" class="card-link">
         <div class="g-card">
           <div class="g-card-icon">▶️</div>
           <div class="g-card-title">YouTube Nonprofit</div>
           <div class="g-card-desc"><span class="en">Donate buttons on videos, verified badge, dedicated support. Archive events and performances.</span><span class="lt">Aukų mygtukai, patvirtintas ženklelis. Archyvuokite renginius.</span></div>
           <div class="g-card-badge"><span class="en">Verified badge</span><span class="lt">Patvirtintas ženklelis</span></div>
+          <span class="link-tag">Apply via G4NP</span>
         </div>
+        </a>
+        <a href="https://mapsplatform.google.com/nonprofit/" target="_blank" rel="noopener" class="card-link">
         <div class="g-card">
           <div class="g-card-icon">🗺️</div>
           <div class="g-card-title"><span class="en">Maps Platform</span><span class="lt">Maps Platforma</span></div>
           <div class="g-card-desc"><span class="en">$200/mo credit for interactive maps — cultural garden, neighborhood history, community site.</span><span class="lt">$200/mėn. kreditas — kultūrinis sodas, rajono istorija, bendruomenės svetainė.</span></div>
           <div class="g-card-badge">$200/mo</div>
+          <span class="link-tag">mapsplatform.google.com</span>
         </div>
+        </a>
+        <a href="https://workspace.google.com/intl/en/landing/partners/referral/nonprofits.html" target="_blank" rel="noopener" class="card-link">
         <div class="g-card">
           <div class="g-card-icon">🤖</div>
           <div class="g-card-title"><span class="en">Gemini AI</span><span class="lt">Gemini DI</span></div>
           <div class="g-card-desc"><span class="en">AI writing and grant narrative drafting built into Workspace. Already powering the grant dashboard.</span><span class="lt">DI rašymas ir dotacijų naratyvų rengimas. Jau naudojama dotacijų skydelyje.</span></div>
           <div class="g-card-badge gold"><span class="en">Included</span><span class="lt">Įtraukta</span></div>
+          <span class="link-tag">Included in Workspace</span>
         </div>
+        </a>
       </div>
     </div>
     <span class="corner-mark">CLAC · 2026</span>
@@ -493,54 +528,78 @@ body.lang-lt .en-inline { display:none; }
         <div class="slide-title"><span class="en">Free Tools for <span>Nonprofits</span></span><span class="lt">Nemokamos Priemonės <span>NVO</span></span></div>
       </div>
       <div class="s4-grid anim-in-2">
+        <a href="https://www.techsoup.org/eligibility" target="_blank" rel="noopener" class="card-link">
         <div class="tool-card">
           <div class="tool-logo">🛍️</div>
           <div class="tool-name">TechSoup</div>
           <div class="tool-desc"><span class="en">The gateway — verify 501(c)(3) here first. Unlocks Microsoft, Adobe, Cisco and the full nonprofit software ecosystem.</span><span class="lt">Vartai — patvirtinkite 501(c)(3) statusą čia. Atrakina visą NVO programinę įrangą.</span></div>
           <div class="tool-tag">⭐ <span class="en">Step 1</span><span class="lt">1 žingsnis</span></div>
+          <span class="link-tag">techsoup.org</span>
         </div>
+        </a>
+        <a href="https://www.canva.com/canva-for-nonprofits/" target="_blank" rel="noopener" class="card-link">
         <div class="tool-card">
           <div class="tool-logo">🎨</div>
           <div class="tool-name">Canva</div>
           <div class="tool-desc"><span class="en">Full Canva Pro free — flyers, social graphics, presentations, reports. Up to 50 licenses.</span><span class="lt">Visas Canva Pro nemokamai — skrajutės, grafika, pateiktys. Iki 50 licencijų.</span></div>
           <div class="tool-tag"><span class="en">Free Pro</span><span class="lt">Nemokamas Pro</span></div>
+          <span class="link-tag">canva.com/canva-for-nonprofits</span>
         </div>
+        </a>
+        <a href="https://www.microsoft.com/en-us/nonprofits" target="_blank" rel="noopener" class="card-link">
         <div class="tool-card">
           <div class="tool-logo">🖥️</div>
           <div class="tool-name">Microsoft 365</div>
           <div class="tool-desc"><span class="en">10 free M365 Business Premium licenses via TechSoup. Word, Excel, Teams, SharePoint.</span><span class="lt">10 nemokamų M365 licencijų per TechSoup. Word, Excel, Teams, SharePoint.</span></div>
           <div class="tool-tag"><span class="en">Via TechSoup</span><span class="lt">Per TechSoup</span></div>
+          <span class="link-tag">microsoft.com/nonprofits</span>
         </div>
+        </a>
+        <a href="https://www.facebook.com/government-nonprofits/best-practices/nonprofits/tools-solutions" target="_blank" rel="noopener" class="card-link">
         <div class="tool-card">
           <div class="tool-logo">📘</div>
           <div class="tool-name">Meta / Facebook</div>
           <div class="tool-desc"><span class="en">Free fundraising tools — donate buttons on posts &amp; live videos, birthday fundraisers, Nonprofit Manager. Processes via PayPal Giving Fund.</span><span class="lt">Nemokamos lėšų rinkimo priemonės — aukų mygtukai, gimtadienio aukos, valdymo skydelis.</span></div>
           <div class="tool-tag"><span class="en">Free + Apply</span><span class="lt">Nemokama + Paraiška</span></div>
+          <span class="link-tag">facebook.com/nonprofits</span>
         </div>
+        </a>
+        <a href="https://mailchimp.com/help/mailchimp-nonprofit-discount/" target="_blank" rel="noopener" class="card-link">
         <div class="tool-card">
           <div class="tool-logo">📧</div>
           <div class="tool-name">Mailchimp</div>
           <div class="tool-desc"><span class="en">15% nonprofit discount. Up to 500 contacts free. Newsletters, event announcements, grant updates.</span><span class="lt">15% nuolaida NVO. Iki 500 kontaktų nemokamai. Naujienlaiškiai, renginių pranešimai.</span></div>
           <div class="tool-tag">15% <span class="en">off</span><span class="lt">nuolaida</span></div>
+          <span class="link-tag">mailchimp.com</span>
         </div>
+        </a>
+        <a href="https://www.paypal.com/us/webapps/mpp/givingfund/nonprofit-enrollment" target="_blank" rel="noopener" class="card-link">
         <div class="tool-card">
           <div class="tool-logo">💳</div>
           <div class="tool-name">PayPal Giving Fund</div>
           <div class="tool-desc"><span class="en">Zero transaction fees for enrolled nonprofits. Donate via PayPal, Venmo, eBay for Charity. Required for Facebook payouts.</span><span class="lt">Nuliniai mokesčiai. Aukos per PayPal, Venmo. Reikalinga Facebook išmokoms.</span></div>
           <div class="tool-tag">0% <span class="en">fees</span><span class="lt">mokesčiai</span></div>
+          <span class="link-tag">paypal.com/givingfund</span>
         </div>
+        </a>
+        <a href="https://asana.com/nonprofit" target="_blank" rel="noopener" class="card-link">
         <div class="tool-card">
           <div class="tool-logo">✅</div>
           <div class="tool-name">Asana</div>
           <div class="tool-desc"><span class="en">Free premium tier for nonprofits — grants, events, board action items, community projects.</span><span class="lt">Nemokamas premium planas — dotacijos, renginiai, valdybos užduotys.</span></div>
           <div class="tool-tag"><span class="en">Free Premium</span><span class="lt">Nemokamas Premium</span></div>
+          <span class="link-tag">asana.com/nonprofit</span>
         </div>
+        </a>
+        <a href="https://explore.zoom.us/en/nonprofit/" target="_blank" rel="noopener" class="card-link">
         <div class="tool-card">
           <div class="tool-logo">📹</div>
           <div class="tool-name">Zoom</div>
           <div class="tool-desc"><span class="en">Discounted plans for verified nonprofits — board meetings, virtual events, donor briefings. Already in use.</span><span class="lt">Nuolaidžios planai NVO — valdybos posėdžiai, virtualūs renginiai. Jau naudojamas.</span></div>
           <div class="tool-tag"><span class="en">Nonprofit Rate</span><span class="lt">NVO Kaina</span></div>
+          <span class="link-tag">zoom.us/nonprofit</span>
         </div>
+        </a>
       </div>
     </div>
     <span class="corner-mark">CLAC · 2026</span>
@@ -563,7 +622,7 @@ body.lang-lt .en-inline { display:none; }
           </div>
           <div class="s5-note">
             <span class="s5-note-tag"><span class="en">Something to think about</span><span class="lt">Verta apsvarstyti</span></span>
-            <p><strong>Sony A7 V (~$2,899)</strong> <span class="en">— replaces hiring a photographer at every event ($500–$1,500/event). Not an immediate ask, but worth budgeting for once digital infrastructure is in place.</span><span class="lt">— pakeičia fotografo samdymą kiekviename renginyje ($500–$1,500). Ne skubus prašymas, bet verta planuoti biudžete.</span></p>
+            <p><a href="https://www.bhphotovideo.com/c/search?q=sony+a7+v" target="_blank" rel="noopener" style="color:var(--cream);text-decoration:none;border-bottom:1px solid rgba(245,240,232,0.25);"><strong>Sony A7 V (~$2,899) ↗</strong></a> <span class="en">— replaces hiring a photographer at every event ($500–$1,500/event). Not an immediate ask, but worth budgeting for once digital infrastructure is in place.</span><span class="lt">— pakeičia fotografo samdymą kiekviename renginyje ($500–$1,500). Ne skubus prašymas, bet verta planuoti biudžete.</span></p>
           </div>
         </div>
         <div class="s5-cam-wrap">
